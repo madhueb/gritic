@@ -446,6 +446,7 @@ class Segment:
             # if multiplicity is bigger than total cn then the vaf can be > 1 which causes a crash
             #any mult > major cn is set to zero subsequently
             mult_vaf = np.minimum(1, mult_one_vaf * multiplicity)
+            mult_vaf = (1-0.1)*mult_vaf + 0.1*(1-mult_vaf)
 
             total_counts = self.mutation_table["Tumor_Alt_Count"] + self.mutation_table["Tumor_Ref_Count"]
             mult_probability = binom.pmf(self.mutation_table["Tumor_Alt_Count"],total_counts,mult_vaf)
